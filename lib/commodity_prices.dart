@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -47,7 +46,7 @@ class CommodityPrices {
       "FARIDABAD",
       "GHAZIABAD",
       "GOA",
-      "GURGAON",
+      "GURUGRAM",
       "GUWAHATI",
       "HUBBALLI",
       "IMPHAL",
@@ -92,11 +91,13 @@ class CommodityPrices {
       "VIJAYAWADA",
       "VISAKHAPATNAM"
     ];
-
-    if (!cities.contains(locality)) {
+    if (!cities.contains(locality.toUpperCase())) {
       locality = "Delhi";
     }
-    
+    if (locality.toUpperCase() == "GURUGRAM") {
+      locality = "Gurgaon";
+    }
+
     Response weatherResponse = await get(
         "http://api.weatherapi.com/v1/current.json?key=89ff3b7718a94d7590e65932200707&q=${position.latitude},${position.longitude}");
     Map data = jsonDecode(weatherResponse.body);
